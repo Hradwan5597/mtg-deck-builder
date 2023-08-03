@@ -14,7 +14,9 @@ function App() {
       <input type="text" id="card-name" name="card-name" minlength="15" maxlength="25"/>
       <button>Go</button>
 
-    <ListView> </ListView>
+    <ListView> 
+      {/* TODO: Hardcode Card objects with images */}
+    </ListView>
     </div>
   );
 }
