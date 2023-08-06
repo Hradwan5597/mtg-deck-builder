@@ -7,12 +7,12 @@
 
 html
 {
-  border: 5px solid red;
+  /* border: 5px solid red; */
   height: 100vh;
 }
 
 body
 {
-  border: 2.5px solid blue;
+  /* border: 2.5px solid blue; */
   height: 100%;
 }
