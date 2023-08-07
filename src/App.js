@@ -1,20 +1,37 @@
 import './App.css';
+import {useState} from "react";
 import ListView from './components/ListView.js';
 import {DataBaseService} from './services/DataBaseService.js'
 
-function App() 
+
+const onSearchByCardName = () => {
+  DataBaseService.searchForCardByName(document.getElementById("card-name").value);
+}
+
+const onSearchBySetName = () => {
+  DataBaseService.searchForSetByName(document.getElementById("set-name").value);
+}
+
+const onSearchClick = (event) => 
 {
-
-  const onSearchByCardName = () =>
+  switch (event.target["id"])
   {
-    
-    DataBaseService.searchForCardByName(document.getElementById("card-name").value);
+    case "set-name-button":
+      onSearchBySetName();
+      break;
+    case "card-name-button":
+      onSearchByCardName();
+      break;
+    default:
+      console.log("Bad input")
+      break;
   }
+}
 
-  const onSearchBySetName = () =>
-  {
-    DataBaseService.searchForSetByName(document.getElementById("set-name").value);
-  }
+const App = () => 
+{
+  const [cardNames, onSearchByCardName] = useState([]);
+  const [setNames, onSearchBySetName] = useState([]);
 
   return (
     <div className="App">
@@ -23,13 +40,12 @@ function App()
       </h2>
       <label htmlFor="set-name">Name of MTG Deck</label>
       <input type="text" id="set-name" name="set-name" minLength="25" maxLength="50"/>
-      <button onClick={onSearchBySetName}>Search Set Name</button>
+      <button id="set-name-button" onClick={onSearchClick}>Search Set Name</button>
       <label htmlFor="card-name">Name of MTG Card</label>
       <input type="text" id="card-name" name="card-name" minLength="15" maxLength="25"/>
-      <button onClick={onSearchByCardName}>Search Card Name</button>
+      <button id="card-name-button" onClick={onSearchClick}>Search Card Name</button>
 
-    <ListView> 
-      {/* TODO: Hardcode Card objects with images */}
+    <ListView > 
     </ListView>
     </div>
   );

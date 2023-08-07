@@ -1,9 +1,9 @@
 import './ListView.css';
 
-const ListView = () => {
+const ListView = (props) => {
     return (
         <div className="ListView"> 
-            list view works
+            {}
         </div>
     );
 }
