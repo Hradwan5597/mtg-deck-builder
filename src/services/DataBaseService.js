@@ -24,7 +24,14 @@ const searchForSetByName = (setName, callbackFunction) =>
 
 const searchForSetByCode = (setCode, callbackFunction) => 
 {
-    fetch();
+    let requestObject = {method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify({setCode: setCode})}
+    fetch("http://localhost:8080/search-set-by-name", requestObject)
+    .then(response => {
+        response.json()
+        .then(result => {
+            console.log(result)
+        })
+    });
 }
 
 export const DataBaseService = 
