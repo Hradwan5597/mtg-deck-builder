@@ -12,13 +12,13 @@ const App = () =>
   const onSearchByCardName = () => {
     DataBaseService.searchForCardByName(document.getElementById("card-name").value);
     // setCardNames()
-    setSearchResults()
+    
   }
   
   const onSearchBySetName = () => {
     DataBaseService.searchForSetByName(document.getElementById("set-name").value);
     // setCardSetName()
-    setSearchResults()
+    
   }
 
   const onSearchClick = (event) => 

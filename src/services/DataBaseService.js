@@ -1,16 +1,30 @@
-const searchForCardByName = cardName =>
+const searchForCardByName = (cardName, callbackFunction) =>
 {
-    console.log("DataBaseService::searchForCardByName(...)", cardName)
+    let requestObject = {method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify({data:"helloworld"})}
+    fetch("http://localhost:8080/search-card-by-name", requestObject)
+    .then(response => {
+        response.json()
+        .then(result => {
+            console.log(result)
+        })
+    })
 }
 
-const searchForSetByName = setName =>
+const searchForSetByName = (setName, callbackFunction) =>
 {
-    console.log("DataBaseService::searchForSetByName(...)", setName)
+    let requestObject = {method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify({data:"helloworld"})}
+    fetch("http://localhost:8080/search-set-by-name", requestObject)
+    .then(response => {
+        response.json()
+        .then(result => {
+            console.log(result)
+        })
+    })
 }
 
-const searchForSetByCode = setCode => 
+const searchForSetByCode = (setCode, callbackFunction) => 
 {
-    console.log("DataBaseService::searchForSetByCode(...)", setCode)
+    fetch();
 }
 
 export const DataBaseService = 
