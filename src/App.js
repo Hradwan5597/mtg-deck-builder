@@ -54,9 +54,9 @@ const App = () =>
       <label htmlFor="card-name">Name of MTG Card</label>
       <input type="text" id="card-name" name="card-name" minLength="15" maxLength="25"/>
       <button id="card-name-button" onClick={onSearchClick}>Search Card Name</button>
-      <label htmlFor="card-code">Code of MTG Set</label>
-      <input type="text" id="card-code" name="card-code" minLength="3" maxLength="8"></input>
-      <button id="card-code-button" onClick={onSearchClick}>Search Set Code</button>
+      <label htmlFor="set-code">Code of MTG Set</label>
+      <input type="text" id="set-code" name="set-code" minLength="3" maxLength="8"></input>
+      <button id="set-code-button" onClick={onSearchClick}>Search Set Code</button>
 
     <ListView searchResults={searchResults}/> 
     
