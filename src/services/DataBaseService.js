@@ -34,9 +34,4 @@ const searchForSetByCode = (setCode, callbackFunction) =>
     });
 }
 
-export const DataBaseService = 
-{
-    searchForCardByName: searchForCardByName,
-    searchForSetByName: searchForSetByName,
-    searchForSetByCode: searchForSetByCode
-}
+export const DataBaseService = {searchForCardByName, searchForSetByName, searchForSetByCode}
