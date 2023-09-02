@@ -1,0 +1,12 @@
+img {
+    max-width: 200px;
+}
+
+
+
+.Card {
+    border: solid 1px black;
+    width: fit-content;
+    margin: auto;
+    text-align: center;
+}

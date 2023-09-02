@@ -1,0 +1,10 @@
+ul {
+    list-style: none;
+}
+
+.ListView {
+    border: solid 1px red;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}

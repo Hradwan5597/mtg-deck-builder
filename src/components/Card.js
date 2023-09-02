@@ -4,8 +4,9 @@ const Card = (props) =>
 {
     return(
         <div className="Card">
-            {props.cardName}
-            {props.imageLink}
+            <h4>{props.cardName}</h4>
+            <img src={props.imageLink} alt="card-image"/>
+            
         </div>
     );
 }
