@@ -8,7 +8,12 @@ const App = () =>
 {
   const [cardNames, setCardNames] = useState([]);
   const [setNames, setCardSetName] = useState([]);
-  const [searchResults, setSearchResults] = useState([<Card cardName="HelloWorld" imageLink="https://cards.scryfall.io/normal/front/a/4/a4d17394-b9c4-43f6-9a6d-2c7c7ecb1d74.jpg?1562552811" />]);
+  const [searchResults, setSearchResults] = useState([
+
+  <Card cardName="Card 1" imageLink="https://cards.scryfall.io/normal/front/a/4/a4d17394-b9c4-43f6-9a6d-2c7c7ecb1d74.jpg?1562552811" />,
+  <Card cardName="Card 2" imageLink="https://cards.scryfall.io/normal/front/a/e/ae635d18-5d22-494c-8bc7-5d52f3021cbb.jpg?1562553519" />
+
+  ]);
 
   const onSearchByCardName = () => 
   {
@@ -59,7 +64,7 @@ const App = () =>
       <input type="text" id="set-code" name="set-code" minLength="3" maxLength="8"></input>
       <button id="set-code-button" onClick={onSearchClick}>Search Set Code</button>
 
-      <ListView searchResults={searchResults}/> 
+      <ListView searchResults={searchResults}/>
     
     </div>
   );

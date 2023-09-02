@@ -1,10 +1,20 @@
 ul {
     list-style: none;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 
 .ListView {
     border: solid 1px red;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
+}
+
+@media screen and (min-width: 650px) {
+    ul {
+        display: flex;
+        flex-direction: row;
+        background-color: aqua;
+        justify-content: space-evenly;
+    }
 }
