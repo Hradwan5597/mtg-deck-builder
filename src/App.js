@@ -18,23 +18,36 @@ const App = () =>
 
   const onSearchByCardName = () => 
   {
-    var result = DataBaseService.searchForCardByName(document.getElementById("card-name").value, setCardsSearchedByName);
-    // transform data base result into <Card /> tags
-    console.log(result);
+    DataBaseService.searchForCardByName(document.getElementById("card-name").value, setCardsSearchedByName)
+    .then(response => {
+      response.json()
+      .then(result => {
+        console.log(result)
+      })
+    });
   }
   
   const onSearchBySetName = () => 
   {
-    var result = DataBaseService.searchForSetByName(document.getElementById("set-name").value, setCardsSearchedBySetName);
-    // transform data base result into <Card /> tags
-    console.log(result);
+    DataBaseService.searchForSetByName(document.getElementById("set-name").value, setCardsSearchedBySetName)
+    .then(response => {
+      response.json()
+      .then(result => {
+          console.log(result)
+      })
+    });
+
   }
 
   const onSearchBySetCode = () => 
   {
-    var result = DataBaseService.searchForSetByCode(document.getElementById("set-code").value, setCardsSearchedBySetCode);
-    // transform data base result into <Card /> tags
-    console.log(result);
+    DataBaseService.searchForSetByCode(document.getElementById("set-code").value, setCardsSearchedBySetCode)    
+    .then(response => {
+      response.json()
+      .then(result => {
+          return result;
+      })
+    });
   }
 
   const onSearchClick = (event) => 
