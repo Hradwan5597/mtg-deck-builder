@@ -1,11 +1,12 @@
 const searchForCardByName = (cardName, callbackFunction) =>
 {
     let requestObject = {method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify({cardName: cardName})}
+
     fetch("http://localhost:8080/search-card-by-name", requestObject)
     .then(response => {
         response.json()
         .then(result => {
-            console.log(result)
+            return result
         })
     })
 }
@@ -17,7 +18,7 @@ const searchForSetByName = (setName, callbackFunction) =>
     .then(response => {
         response.json()
         .then(result => {
-            console.log(result)
+            return result;
         })
     })
 }
@@ -25,11 +26,12 @@ const searchForSetByName = (setName, callbackFunction) =>
 const searchForSetByCode = (setCode, callbackFunction) => 
 {
     let requestObject = {method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify({setCode: setCode})}
+
     fetch("http://localhost:8080/search-set-by-code", requestObject)
     .then(response => {
         response.json()
         .then(result => {
-            console.log(result)
+            return result;
         })
     });
 }

@@ -6,8 +6,9 @@ import {DataBaseService} from './services/DataBaseService.js'
 
 const App = () => 
 {
-  const [cardNames, setCardNames] = useState([]);
-  const [setNames, setCardSetName] = useState([]);
+  const [cardsSearchedByName, setCardsSearchedByName] = useState([]);
+  const [cardsSearchedBySetName, setCardsSearchedBySetName] = useState([]);
+  const [cardsSearchedBySetCode, setCardsSearchedBySetCode] = useState([])
   const [searchResults, setSearchResults] = useState([
 
   <Card cardName="Card 1" imageLink="https://cards.scryfall.io/normal/front/a/4/a4d17394-b9c4-43f6-9a6d-2c7c7ecb1d74.jpg?1562552811" />,
@@ -17,38 +18,42 @@ const App = () =>
 
   const onSearchByCardName = () => 
   {
-    DataBaseService.searchForCardByName(document.getElementById("card-name").value);
-    
+    var result = DataBaseService.searchForCardByName(document.getElementById("card-name").value, setCardsSearchedByName);
+    // transform data base result into <Card /> tags
+    console.log(result);
   }
   
   const onSearchBySetName = () => 
   {
-    DataBaseService.searchForSetByName(document.getElementById("set-name").value);
-    
+    var result = DataBaseService.searchForSetByName(document.getElementById("set-name").value, setCardsSearchedBySetName);
+    // transform data base result into <Card /> tags
+    console.log(result);
   }
 
   const onSearchBySetCode = () => 
   {
-    DataBaseService.searchForSetByCode(document.getElementById("set-code").value);
+    var result = DataBaseService.searchForSetByCode(document.getElementById("set-code").value, setCardsSearchedBySetCode);
+    // transform data base result into <Card /> tags
+    console.log(result);
   }
 
   const onSearchClick = (event) => 
   {
-    // switch (event.target["id"])
-    // {
-    //   case "set-name-button":
-    //     onSearchBySetName();
-    //     break;
-    //   case "card-name-button":
-    //     onSearchByCardName();
-    //     break;
-    //   case "set-code-button":
-    //     onSearchBySetCode();
-    //     break;
-    //   default:
-    //     console.log("Bad input")
-    //     break;
-    // }
+    switch (event.target["id"])
+    {
+      case "set-name-button":
+        onSearchBySetName();
+        break;
+      case "card-name-button":
+        onSearchByCardName();
+        break;
+      case "set-code-button":
+        onSearchBySetCode();
+        break;
+      default:
+        console.log("Bad input")
+        break;
+    }
   }
 
   return (

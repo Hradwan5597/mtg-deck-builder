@@ -8,6 +8,7 @@ ul {
 .pagination {
     border: solid 5px aquamarine;
     text-align: center;
+    color:white;
 }
 
 .ListView {
