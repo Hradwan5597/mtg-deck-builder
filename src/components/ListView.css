@@ -1,13 +1,19 @@
 ul {
     list-style: none;
-    
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
 }
 
+.pagination {
+    border: solid 5px aquamarine;
+    text-align: center;
+}
+
 .ListView {
-    border: solid 1px red;
+    display: flex;
+    flex-direction: column;
+
 }
 
 @media screen and (min-width: 650px) {
