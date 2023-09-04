@@ -17,7 +17,7 @@ const App = () =>
     .then(response => {
       response.json()
       .then(result => {
-        setSearchResults(result.map(cardDocument => <Card cardName={cardDocument.cardName} src={cardDocument.imageUrl}/>))
+        setSearchResults(result.map(cardDocument => <Card cardName={cardDocument.cardName} imageLink={cardDocument.imageUrl}/>))
       })
     });
   }
@@ -28,7 +28,7 @@ const App = () =>
     .then(response => {
       response.json()
       .then(result => {
-          console.log(result); // TODO: transform result into <Card /> tag
+        setSearchResults(result.map(cardDocument => <Card cardName={cardDocument.cardName} imageLink={cardDocument.imageUrl}/>))
       })
     });
 
@@ -40,7 +40,7 @@ const App = () =>
     .then(response => {
       response.json()
       .then(result => {
-          console.log(result); // TODO: transform result into <Card /> tag
+        setSearchResults(result.map(cardDocument => <Card cardName={cardDocument.cardName} imageLink={cardDocument.imageUrl}/>))
       })
     });
   }
