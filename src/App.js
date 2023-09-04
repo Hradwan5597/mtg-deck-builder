@@ -9,12 +9,7 @@ const App = () =>
   const [cardsSearchedByName, setCardsSearchedByName] = useState([]);
   const [cardsSearchedBySetName, setCardsSearchedBySetName] = useState([]);
   const [cardsSearchedBySetCode, setCardsSearchedBySetCode] = useState([])
-  const [searchResults, setSearchResults] = useState([
-
-  <Card cardName="Card 1" imageLink="https://cards.scryfall.io/normal/front/a/4/a4d17394-b9c4-43f6-9a6d-2c7c7ecb1d74.jpg?1562552811" />,
-  <Card cardName="Card 2" imageLink="https://cards.scryfall.io/normal/front/a/e/ae635d18-5d22-494c-8bc7-5d52f3021cbb.jpg?1562553519" />
-
-  ]);
+  const [searchResults, setSearchResults] = useState([]);
 
   const onSearchByCardName = () => 
   {
@@ -22,7 +17,7 @@ const App = () =>
     .then(response => {
       response.json()
       .then(result => {
-        console.log(result)
+        setSearchResults(result.map(cardDocument => <Card cardName={cardDocument.cardName} src={cardDocument.imageUrl}/>))
       })
     });
   }
@@ -33,7 +28,7 @@ const App = () =>
     .then(response => {
       response.json()
       .then(result => {
-          console.log(result)
+          console.log(result); // TODO: transform result into <Card /> tag
       })
     });
 
@@ -45,7 +40,7 @@ const App = () =>
     .then(response => {
       response.json()
       .then(result => {
-          return result;
+          console.log(result); // TODO: transform result into <Card /> tag
       })
     });
   }
