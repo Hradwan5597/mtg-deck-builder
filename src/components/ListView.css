@@ -5,12 +5,6 @@ ul {
     justify-content: space-evenly;
 }
 
-.pagination {
-    border: solid 5px aquamarine;
-    text-align: center;
-    color:white;
-}
-
 .ListView {
     display: flex;
     flex-direction: column;
