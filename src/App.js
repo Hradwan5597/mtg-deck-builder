@@ -7,11 +7,17 @@ import {DataBaseService} from './services/DataBaseService.js'
 
 const App = () => 
 {
+
+  // application state
+
   const [cardsSearchedByName, setCardsSearchedByName] = useState([]);
   const [cardsSearchedBySetName, setCardsSearchedBySetName] = useState([]);
   const [cardsSearchedBySetCode, setCardsSearchedBySetCode] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [previouslySearchedCategory, setPreviouslySearchedCategory] = useState("");
+
+
+  // DB service
 
   const onSearchByCardName = () => 
   {
@@ -46,6 +52,8 @@ const App = () =>
     });
   }
 
+  // search controls
+
   const onSearchClick = (event) => 
   {
     switch (event.target["id"])
@@ -74,13 +82,13 @@ const App = () =>
     switch (previouslySearchedCategory)
     {
       case "set-name":
-
+        // todo rerun search with selected value as the new "limit" parameter for mongo DB search
         break;
       case "card-name":
-
+        // todo rerun search with selected value as the new "limit" parameter for mongo DB search
         break;
       case "set-code":
-
+        // todo rerun search with selected value as the new "limit" parameter for mongo DB search
         break;
       default:
         console.log("Bad input")
@@ -88,17 +96,37 @@ const App = () =>
     }
   }
 
+  const onTogglePage = (event) =>
+  {
+    switch (event.target["id"])
+    {
+      case "prev-button":
+        // todo rerun search with new page using -1 to the "skip" parameter for mongo DB search
+        break;
+      case "next-button":
+        // todo rerun search with new page using +1 to the "skip" parameter for mongo DB search 
+        break;
+      default:
+        console.log("Bad input")
+        break;
+    }
+  }
+
+  // UI
   return (
     <div className="App">
       <h2>MTG Deck Builder</h2>
       <SearchPanel onSearchClick={onSearchClick}/>
       <div className='SearchControls'>
+        Cards to display: 
         <select onChange={onSelectCounter}>
           <option value="5"> 5 </option>
           <option value="10"> 10 </option>
           <option value="25"> 25 </option>
           <option value="50"> 50 </option>
         </select>
+        <button onClick={onTogglePage} id='prev-button'>Previous</button>
+        <button onClick={onTogglePage} id='next-button'>Next</button>
       </div>
       <ListView searchResults={searchResults}/>
     </div>
