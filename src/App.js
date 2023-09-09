@@ -1,6 +1,7 @@
 import './App.css';
 import {useState} from "react";
 import ListView from './components/ListView.js';
+import SearchPanel from './components/SearchPanel.js';
 import Card from './components/Card.js'
 import {DataBaseService} from './services/DataBaseService.js'
 
@@ -67,18 +68,8 @@ const App = () =>
   return (
     <div className="App">
       <h2>MTG Deck Builder</h2>
-      <label htmlFor="set-name">Name of MTG Set</label>
-      <input type="text" id="set-name" name="set-name" minLength="25" maxLength="50"/>
-      <button id="set-name-button" onClick={onSearchClick}>Search Set Name</button>
-      <label htmlFor="card-name">Name of MTG Card</label>
-      <input type="text" id="card-name" name="card-name" minLength="15" maxLength="25"/>
-      <button id="card-name-button" onClick={onSearchClick}>Search Card Name</button>
-      <label htmlFor="set-code">Code of MTG Set</label>
-      <input type="text" id="set-code" name="set-code" minLength="3" maxLength="8"></input>
-      <button id="set-code-button" onClick={onSearchClick}>Search Set Code</button>
-
+      <SearchPanel onSearchClick={onSearchClick}/>
       <ListView searchResults={searchResults}/>
-    
     </div>
   );
 }
