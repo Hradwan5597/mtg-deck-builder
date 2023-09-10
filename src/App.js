@@ -10,9 +10,6 @@ const App = () =>
 
   // application state
 
-  const [cardsSearchedByName, setCardsSearchedByName] = useState([]);
-  const [cardsSearchedBySetName, setCardsSearchedBySetName] = useState([]);
-  const [cardsSearchedBySetCode, setCardsSearchedBySetCode] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [previouslySearchedCategory, setPreviouslySearchedCategory] = useState("");
 
@@ -21,7 +18,7 @@ const App = () =>
 
   const onSearchByCardName = () => 
   {
-    DataBaseService.searchForCardByName(document.getElementById("card-name").value, setCardsSearchedByName)
+    DataBaseService.searchForCardByName(document.getElementById("card-name").value)
     .then(response => {
       response.json()
       .then(result => {
@@ -32,18 +29,18 @@ const App = () =>
   
   const onSearchBySetName = () => 
   {
-    DataBaseService.searchForSetByName(document.getElementById("set-name").value, setCardsSearchedBySetName)
+    DataBaseService.searchForSetByName(document.getElementById("set-name").value)
     .then(response => {
       response.json()
       .then(result => {
-        setSearchResults(result.map(cardDocument => <Card cardName={cardDocument.cardName} imageLink={cardDocument.imageUrl}/>))
+        setSearchResults(result.map(setDocument => <>{setDocument.setName} {setDocument.setCode}</>))
       })
     });
   }
 
   const onSearchBySetCode = () => 
   {
-    DataBaseService.searchForSetByCode(document.getElementById("set-code").value, setCardsSearchedBySetCode)    
+    DataBaseService.searchForSetByCode(document.getElementById("set-code").value)    
     .then(response => {
       response.json()
       .then(result => {
