@@ -9,16 +9,13 @@ const App = () =>
 {
 
   // application state
-
   const [searchResults, setSearchResults] = useState([]);
-  const [previouslySearchedCategory, setPreviouslySearchedCategory] = useState("");
 
-
-  // DB service
-
+  // DB service  
   const onSearchByCardName = () => 
   {
-    DataBaseService.searchForCardByName(document.getElementById("card-name").value)
+    // setPreviousSearchRequest({category: "card-name", query: document.getElementById("card-name").value, skipNum: })
+    DataBaseService.searchForCardByName(document.getElementById("card-name").value, 0, 5)
     .then(response => {
       response.json()
       .then(result => {
@@ -29,7 +26,8 @@ const App = () =>
   
   const onSearchBySetName = () => 
   {
-    DataBaseService.searchForSetByName(document.getElementById("set-name").value)
+    // setPreviousSearchRequest({category: "set-name", query: document.getElementById("set-name").value, skipNum: })
+    DataBaseService.searchForSetByName(document.getElementById("set-name").value, 0, 5)
     .then(response => {
       response.json()
       .then(result => {
@@ -40,7 +38,8 @@ const App = () =>
 
   const onSearchBySetCode = () => 
   {
-    DataBaseService.searchForSetByCode(document.getElementById("set-code").value)    
+    // setPreviousSearchRequest({category: "set-code", query: document.getElementById("set-code").value, skipNum: })
+    DataBaseService.searchForSetByCode(document.getElementById("set-code").value, 0, 5)    
     .then(response => {
       response.json()
       .then(result => {
@@ -51,46 +50,36 @@ const App = () =>
 
   // search controls
 
+  const clearInputs = (event) => 
+  {
+    document.getElementById("card-name").value=""
+    document.getElementById("set-name").value=""
+    document.getElementById("set-code").value=""
+  }
+
   const onSearchClick = (event) => 
   {
     switch (event.target["id"])
     {
       case "set-name-button":
-        setPreviouslySearchedCategory("set-name")
         onSearchBySetName();
         break;
       case "card-name-button":
-        setPreviouslySearchedCategory("card-name")
         onSearchByCardName();
         break;
       case "set-code-button":
-        setPreviouslySearchedCategory("set-code")
         onSearchBySetCode();
         break;
       default:
         console.log("Bad input")
         break;
     }
+    clearInputs();
   }
 
   const onSelectCounter = (event) =>
   {
-    console.log(event.target["value"])
-    switch (previouslySearchedCategory)
-    {
-      case "set-name":
-        // todo rerun search with selected value as the new "limit" parameter for mongo DB search
-        break;
-      case "card-name":
-        // todo rerun search with selected value as the new "limit" parameter for mongo DB search
-        break;
-      case "set-code":
-        // todo rerun search with selected value as the new "limit" parameter for mongo DB search
-        break;
-      default:
-        console.log("Bad input")
-        break;
-    }
+    //todo
   }
 
   const onTogglePage = (event) =>
@@ -98,10 +87,10 @@ const App = () =>
     switch (event.target["id"])
     {
       case "prev-button":
-        // todo rerun search with new page using -1 to the "skip" parameter for mongo DB search
+        
         break;
       case "next-button":
-        // todo rerun search with new page using +1 to the "skip" parameter for mongo DB search 
+
         break;
       default:
         console.log("Bad input")
@@ -109,23 +98,26 @@ const App = () =>
     }
   }
 
+  const onReloadResults = (event) =>
+  {
+    // todo rerun previous search
+    console.log(event);
+    setSearchResults([]);
+  }
+
   // UI
   return (
     <div className="App">
       <h2>MTG Deck Builder</h2>
-      <SearchPanel onSearchClick={onSearchClick}/>
-      <div className='SearchControls'>
-        Cards to display: 
-        <select onChange={onSelectCounter}>
-          <option value="5"> 5 </option>
-          <option value="10"> 10 </option>
-          <option value="25"> 25 </option>
-          <option value="50"> 50 </option>
-        </select>
-        <button onClick={onTogglePage} id='prev-button'>Previous</button>
-        <button onClick={onTogglePage} id='next-button'>Next</button>
-      </div>
+      
+      <SearchPanel 
+        onSearchClick={onSearchClick} 
+        onSelectCounter={onSelectCounter} 
+        onTogglePage={onTogglePage} 
+        onReloadResults={onReloadResults}/>
+
       <ListView searchResults={searchResults}/>
+
     </div>
   );
 }
