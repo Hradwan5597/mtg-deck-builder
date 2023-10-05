@@ -10,24 +10,43 @@ const App = () =>
 
   // application state
   const [searchResults, setSearchResults] = useState([]);
+  const [currentSkipNum, setCurrentSkipNum] = useState(0);
+  const [currentCounterValue, setCurrentCounterValue] = useState(5);
+  const [previousSearchQuery, setPreviousSearchQuery] = useState({
+    category: "", query: "", skipNum: currentSkipNum, counter: currentCounterValue});
 
   // DB service  
   const onSearchByCardName = () => 
   {
-    // setPreviousSearchRequest({category: "card-name", query: document.getElementById("card-name").value, skipNum: })
-    DataBaseService.searchForCardByName(document.getElementById("card-name").value, 0, 5)
+    setPreviousSearchQuery({
+      category: "card-name", 
+      query: document.getElementById("card-name").value, 
+      skipNum: currentSkipNum,
+      counter: currentCounterValue
+    });
+
+    DataBaseService.searchForCardByName(
+      document.getElementById("card-name").value, currentSkipNum, currentCounterValue)
     .then(response => {
       response.json()
       .then(result => {
-        setSearchResults(result.map(cardDocument => <Card cardName={cardDocument.cardName} imageLink={cardDocument.imageUrl}/>))
+        setSearchResults(result.map(cardDocument => 
+          <Card cardName={cardDocument.cardName} imageLink={cardDocument.imageUrl}/>))
       })
     });
   }
   
   const onSearchBySetName = () => 
   {
-    // setPreviousSearchRequest({category: "set-name", query: document.getElementById("set-name").value, skipNum: })
-    DataBaseService.searchForSetByName(document.getElementById("set-name").value, 0, 5)
+    setPreviousSearchQuery({
+      category: "set-name", 
+      query: document.getElementById("set-name").value, 
+      skipNum: currentSkipNum,
+      counter: currentCounterValue
+    });
+
+    DataBaseService.searchForSetByName(
+      document.getElementById("set-name").value, currentSkipNum, currentCounterValue)
     .then(response => {
       response.json()
       .then(result => {
@@ -38,12 +57,20 @@ const App = () =>
 
   const onSearchBySetCode = () => 
   {
-    // setPreviousSearchRequest({category: "set-code", query: document.getElementById("set-code").value, skipNum: })
-    DataBaseService.searchForSetByCode(document.getElementById("set-code").value, 0, 5)    
+    setPreviousSearchQuery({
+      category: "set-code", 
+      query: document.getElementById("set-code").value, 
+      skipNum: currentSkipNum,
+      counter: currentCounterValue
+    });
+
+    DataBaseService.searchForSetByCode(
+      document.getElementById("set-code").value, currentSkipNum, currentCounterValue)    
     .then(response => {
       response.json()
       .then(result => {
-        setSearchResults(result.map(cardDocument => <Card cardName={cardDocument.cardName} imageLink={cardDocument.imageUrl}/>))
+        setSearchResults(result.map(cardDocument => 
+          <Card cardName={cardDocument.cardName} imageLink={cardDocument.imageUrl}/>))
       })
     });
   }
@@ -59,6 +86,9 @@ const App = () =>
 
   const onSearchClick = (event) => 
   {
+    setSearchResults([])
+    event.stopPropagation();
+    event.preventDefault();
     switch (event.target["id"])
     {
       case "set-name-button":
@@ -79,23 +109,25 @@ const App = () =>
 
   const onSelectCounter = (event) =>
   {
-    //todo
+    setCurrentCounterValue(event.target.value)
   }
 
   const onTogglePage = (event) =>
   {
+    searchResults([])
     switch (event.target["id"])
     {
       case "prev-button":
-        
+        setCurrentSkipNum(currentSkipNum + 1)
         break;
       case "next-button":
-
+        setCurrentSkipNum(currentSkipNum - 1)
         break;
       default:
         console.log("Bad input")
         break;
     }
+    
   }
 
   const onReloadResults = (event) =>
