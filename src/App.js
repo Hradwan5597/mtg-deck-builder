@@ -1,5 +1,6 @@
 import './App.css';
 import {useState} from "react";
+import TopBar from './components/TopBar';
 import ListView from './components/ListView.js';
 import SearchPanel from './components/SearchPanel.js';
 import Card from './components/Card.js'
@@ -76,7 +77,6 @@ const App = () =>
   }
 
   // search controls
-
   const clearInputs = (event) => 
   {
     document.getElementById("card-name").value=""
@@ -140,8 +140,9 @@ const App = () =>
   // UI
   return (
     <div className="App">
-      <h2>MTG Deck Builder</h2>
-      
+
+      <TopBar />
+
       <SearchPanel 
         onSearchClick={onSearchClick} 
         onSelectCounter={onSelectCounter} 

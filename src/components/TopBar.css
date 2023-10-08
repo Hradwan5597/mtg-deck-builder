@@ -1,3 +1,25 @@
 .TopBar {
+    border: solid 5px teal;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-controls
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+}
+
+.shopping-cart-icon
+{
+    width: 20px;
+    height: 20px;
+    border: solid 1px red;
     
+}
+
+.shopping-cart-icon:hover
+{
+    cursor: pointer;
 }
