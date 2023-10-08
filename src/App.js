@@ -1,16 +1,19 @@
 import './App.css';
 import {useState} from "react";
-import TopBar from './components/TopBar';
+import Card from './components/Card.js';
+import Modal from './components/Modal.js';
+import TopBar from './components/TopBar.js';
 import ListView from './components/ListView.js';
 import SearchPanel from './components/SearchPanel.js';
-import Card from './components/Card.js'
-import {DataBaseService} from './services/DataBaseService.js'
+import {DataBaseService} from './services/DataBaseService.js';
 
 const App = () => 
 {
 
   // application state
+  const [showModal, setShowModal] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
+  const [selectedCards, setSelectedCards] = useState([]);
   const [currentSkipNum, setCurrentSkipNum] = useState(0);
   const [currentCounterValue, setCurrentCounterValue] = useState(5);
   const [previousSearchQuery, setPreviousSearchQuery] = useState({
@@ -32,7 +35,7 @@ const App = () =>
       response.json()
       .then(result => {
         setSearchResults(result.map(cardDocument => 
-          <Card cardName={cardDocument.cardName} imageLink={cardDocument.imageUrl}/>))
+          <Card cardName={cardDocument.cardName} imageLink={cardDocument.imageUrl} onCardClick={onCardClick}/>))
       })
     });
   }
@@ -137,9 +140,23 @@ const App = () =>
     setSearchResults([]);
   }
 
+  //user controls
+  const onCardClick = (event) =>
+  {
+    setShowModal(true)
+    console.log(event)
+  }
+
+  const onModalClick = (event) =>
+  {
+    setShowModal(false)
+  }
+
   // UI
   return (
     <div className="App">
+
+      {showModal && <Modal onModalClick={onModalClick}/>}
 
       <TopBar />
 

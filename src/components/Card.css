@@ -3,8 +3,14 @@ img {
 }
 
 .Card {
-    border: solid 1px black;
     width: fit-content;
     margin: auto;
     text-align: center;
+}
+
+.Card:hover
+{
+    cursor: pointer;
+    background: coral;
+    transition: 0.5s;
 }

@@ -1,0 +1,16 @@
+.Modal
+{
+    position: fixed;
+    border: 1px solid black;
+    width: 1000vw;
+    height: 1000vh;
+    background: black;
+    opacity: 50%;
+    left: -2rem;
+    top: -2rem;
+}
+
+.Modal:hover
+{
+    cursor: pointer;
+}
