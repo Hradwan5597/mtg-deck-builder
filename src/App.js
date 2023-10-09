@@ -117,7 +117,7 @@ const App = () =>
 
   const onTogglePage = (event) =>
   {
-    searchResults([])
+    setSearchResults([]);
     switch (event.target["id"])
     {
       case "prev-button":
@@ -130,7 +130,9 @@ const App = () =>
         console.log("Bad input")
         break;
     }
-    
+
+    setPreviousSearchQuery({...previousSearchQuery, skipNum: currentSkipNum});
+    reloadResults()
   }
 
   const onReloadResults = (event) =>
@@ -138,6 +140,34 @@ const App = () =>
     // todo rerun previous search
     console.log(event);
     setSearchResults([]);
+  }
+
+  const reloadResults = () =>
+  {
+    switch(previousSearchQuery.category)
+    {
+      case "card-name":
+        DataBaseService.searchForCardByName(previousSearchQuery.query, previousSearchQuery.skipNum, previousSearchQuery.counter)
+        .then(response => {
+          response.json()
+          .then(result => {/*todo*/});
+        })
+        break;
+      case "set-name":
+        DataBaseService.searchForSetByName(previousSearchQuery.query, previousSearchQuery.skipNum, previousSearchQuery.counter)
+        .then(response => {
+          response.json()
+          .then(result => {/*todo*/});
+        });
+        break;
+      case "set-code":
+        DataBaseService.searchForSetByCode(previousSearchQuery.query, previousSearchQuery.skipNum, previousSearchQuery.counter)
+        .then(response => {
+          response.json()
+          .then(result => {/*todo*/});
+        });
+        break;
+    }
   }
 
   //user controls
