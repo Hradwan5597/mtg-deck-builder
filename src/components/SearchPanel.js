@@ -21,9 +21,9 @@ const SearchPanel = (props) =>
                     <option value="25"> 25 </option>
                     <option value="50"> 50 </option>
                 </select>
-                <button onClick={props.onReloadResults} id="reload-button">Reload</button>
-                <button onClick={props.onTogglePage} id='prev-button'>Previous</button>
-                <button onClick={props.onTogglePage} id='next-button'>Next</button>
+                <button disabled={props.buttonDisabled} onClick={props.onReloadResults} id="reload-button">Reload</button>
+                <button disabled={props.buttonDisabled} onClick={props.onTogglePage} id='prev-button'>Previous</button>
+                <button disabled={props.buttonDisabled} onClick={props.onTogglePage} id='next-button'>Next</button>
             </div>    
         </>
     );

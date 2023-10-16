@@ -7,7 +7,7 @@ const Card = (props) =>
             
             <h4>{props.cardName}</h4>
 
-            <img src={props.imageLink}
+            <img id={props.cardName} src={props.imageLink}
             alt="card"/>
 
         </div>

@@ -1,14 +1,13 @@
 import './App.css';
-import {useState} from "react";
+import { useState, useEffect } from "react";
 import Card from './components/Card.js';
 import Modal from './components/Modal.js';
 import TopBar from './components/TopBar.js';
 import ListView from './components/ListView.js';
 import SearchPanel from './components/SearchPanel.js';
-import {DataBaseService} from './services/DataBaseService.js';
+import { DataBaseService } from './services/DataBaseService.js';
 
-const App = () => 
-{
+const App = () => {
 
   // application state
   const [showModal, setShowModal] = useState(false);
@@ -17,83 +16,87 @@ const App = () =>
   const [currentSkipNum, setCurrentSkipNum] = useState(0);
   const [currentCounterValue, setCurrentCounterValue] = useState(5);
   const [previousSearchQuery, setPreviousSearchQuery] = useState({
-    category: "", query: "", skipNum: currentSkipNum, counter: currentCounterValue});
+    category: "", query: "", skipNum: currentSkipNum, counter: currentCounterValue
+  });
+
+  // application effects
+
+  useEffect(() => {console.log(searchResults)}, [searchResults])
 
   // DB service  
-  const onSearchByCardName = () => 
-  {
+  const onSearchByCardName = () => {
     setPreviousSearchQuery({
-      category: "card-name", 
-      query: document.getElementById("card-name").value, 
+      category: "card-name",
+      query: document.getElementById("card-name").value,
       skipNum: currentSkipNum,
       counter: currentCounterValue
     });
 
     DataBaseService.searchForCardByName(
       document.getElementById("card-name").value, currentSkipNum, currentCounterValue)
-    .then(response => {
-      response.json()
-      .then(result => {
-        setSearchResults(result.map(cardDocument => 
-          <Card cardName={cardDocument.cardName} imageLink={cardDocument.imageUrl} onCardClick={onCardClick}/>))
-      })
-    });
+      .then(response => {
+        response.json()
+          .then(result => {
+            setSearchResults(result.map(cardDocument =>
+              <Card onCardClick={onCardClick}cardName={cardDocument.cardName} imageLink={cardDocument.imageUrl} />))
+          })
+      });
   }
-  
-  const onSearchBySetName = () => 
-  {
+
+  const onSearchBySetName = () => {
     setPreviousSearchQuery({
-      category: "set-name", 
-      query: document.getElementById("set-name").value, 
+      category: "set-name",
+      query: document.getElementById("set-name").value,
       skipNum: currentSkipNum,
       counter: currentCounterValue
     });
 
     DataBaseService.searchForSetByName(
       document.getElementById("set-name").value, currentSkipNum, currentCounterValue)
-    .then(response => {
-      response.json()
-      .then(result => {
-        setSearchResults(result.map(setDocument => <>{setDocument.setName} {setDocument.setCode}</>))
-      })
-    });
+      .then(response => {
+        response.json()
+          .then(result => {
+            setSearchResults(result.map(setDocument => <>{setDocument.setName} {setDocument.setCode}</>))
+          })
+      });
   }
 
-  const onSearchBySetCode = () => 
-  {
+  const onSearchBySetCode = () => {
     setPreviousSearchQuery({
-      category: "set-code", 
-      query: document.getElementById("set-code").value, 
+      category: "set-code",
+      query: document.getElementById("set-code").value,
       skipNum: currentSkipNum,
       counter: currentCounterValue
     });
 
     DataBaseService.searchForSetByCode(
-      document.getElementById("set-code").value, currentSkipNum, currentCounterValue)    
-    .then(response => {
-      response.json()
-      .then(result => {
-        setSearchResults(result.map(cardDocument => 
-          <Card cardName={cardDocument.cardName} imageLink={cardDocument.imageUrl}/>))
-      })
-    });
+      document.getElementById("set-code").value, currentSkipNum, currentCounterValue)
+      .then(response => {
+        response.json()
+          .then(result => {
+            setSearchResults(result.map(cardDocument =>
+              <Card onCardClick={onCardClick} cardName={cardDocument.cardName} imageLink={cardDocument.imageUrl} />))
+          })
+      });
   }
 
   // search controls
-  const clearInputs = (event) => 
-  {
-    document.getElementById("card-name").value=""
-    document.getElementById("set-name").value=""
-    document.getElementById("set-code").value=""
+  const clearInputs = () => {
+    document.getElementById("card-name").value = ""
+    document.getElementById("set-name").value = ""
+    document.getElementById("set-code").value = ""
   }
 
-  const onSearchClick = (event) => 
+  const getCardFromSearchResults = (cardID) =>
   {
+    //todo
+  }
+
+  const onSearchClick = (event) => {
     setSearchResults([])
     event.stopPropagation();
     event.preventDefault();
-    switch (event.target["id"])
-    {
+    switch (event.target["id"]) {
       case "set-name-button":
         onSearchBySetName();
         break;
@@ -110,75 +113,81 @@ const App = () =>
     clearInputs();
   }
 
-  const onSelectCounter = (event) =>
-  {
+  const onSelectCounter = (event) => {
     setCurrentCounterValue(event.target.value)
   }
 
-  const onTogglePage = (event) =>
-  {
+  const onTogglePage = (event) => {
     setSearchResults([]);
-    switch (event.target["id"])
-    {
+    switch (event.target["id"]) {
       case "prev-button":
-        setCurrentSkipNum(currentSkipNum + 1)
+        if (currentSkipNum !== 0)
+          setCurrentSkipNum(currentSkipNum - 1)
         break;
       case "next-button":
-        setCurrentSkipNum(currentSkipNum - 1)
+        setCurrentSkipNum(currentSkipNum + 1)
         break;
       default:
         console.log("Bad input")
         break;
     }
 
-    setPreviousSearchQuery({...previousSearchQuery, skipNum: currentSkipNum});
+    setPreviousSearchQuery({ ...previousSearchQuery, skipNum: currentSkipNum });
     reloadResults()
   }
 
-  const onReloadResults = (event) =>
-  {
-    // todo rerun previous search
-    console.log(event);
+  const onReloadResults = (event) => {
     setSearchResults([]);
+    reloadResults();
   }
 
-  const reloadResults = () =>
-  {
-    switch(previousSearchQuery.category)
-    {
+  const reloadResults = () => {
+    switch (previousSearchQuery.category) {
       case "card-name":
         DataBaseService.searchForCardByName(previousSearchQuery.query, previousSearchQuery.skipNum, previousSearchQuery.counter)
-        .then(response => {
-          response.json()
-          .then(result => {/*todo*/});
-        })
+          .then(response => {
+            response.json()
+              .then(result => {
+                setSearchResults(result.map(cardDocument =>
+                  <Card cardName={cardDocument.cardName} imageLink={cardDocument.imageUrl} onCardClick={onCardClick} />))
+              });
+          })
         break;
       case "set-name":
         DataBaseService.searchForSetByName(previousSearchQuery.query, previousSearchQuery.skipNum, previousSearchQuery.counter)
-        .then(response => {
-          response.json()
-          .then(result => {/*todo*/});
-        });
+          .then(response => {
+            response.json()
+              .then(result => {
+                setSearchResults(result.map(setDocument => <>{setDocument.setName} {setDocument.setCode}</>))
+              });
+          });
         break;
       case "set-code":
         DataBaseService.searchForSetByCode(previousSearchQuery.query, previousSearchQuery.skipNum, previousSearchQuery.counter)
-        .then(response => {
-          response.json()
-          .then(result => {/*todo*/});
-        });
+          .then(response => {
+            response.json()
+              .then(result => {
+                setSearchResults(result.map(cardDocument =>
+                  <Card cardName={cardDocument.cardName} imageLink={cardDocument.imageUrl} />))
+              });
+          });
         break;
     }
   }
 
   //user controls
-  const onCardClick = (event) =>
+  const onShoppingCartClick = (event) =>
   {
-    setShowModal(true)
-    console.log(event)
+    setShowModal(true);
   }
 
-  const onModalClick = (event) =>
-  {
+  const onCardClick = (event) => {
+    setShowModal(true)
+    getCardFromSearchResults(event.target.id)
+    // console.log(event.target.id)
+  }
+
+  const onModalClick = (event) => {
     setShowModal(false)
   }
 
@@ -186,17 +195,18 @@ const App = () =>
   return (
     <div className="App">
 
-      {showModal && <Modal onModalClick={onModalClick}/>}
+      {showModal && <Modal onModalClick={onModalClick} />}
 
-      <TopBar />
+      <TopBar onShoppingCartClick={onShoppingCartClick} />
 
-      <SearchPanel 
-        onSearchClick={onSearchClick} 
-        onSelectCounter={onSelectCounter} 
-        onTogglePage={onTogglePage} 
-        onReloadResults={onReloadResults}/>
+      <SearchPanel
+        onSearchClick={onSearchClick}
+        onSelectCounter={onSelectCounter}
+        onTogglePage={onTogglePage}
+        onReloadResults={onReloadResults} 
+        buttonDisabled={previousSearchQuery.category === ""}/>
 
-      <ListView searchResults={searchResults}/>
+      <ListView searchResults={searchResults} />
 
     </div>
   );
