@@ -37,8 +37,8 @@ const App = () => {
       .then(response => {
         response.json()
           .then(result => {
-            setSearchResults(result.map(cardDocument =>
-              <Card onCardClick={onCardClick}cardName={cardDocument.cardName} imageLink={cardDocument.imageUrl} />))
+            setSearchResults(result.map((cardDocument, index) =>
+              <Card cardID={cardDocument.cardName + "." + index + "." + cardDocument._id} onCardClick={onCardClick}cardName={cardDocument.cardName} imageLink={cardDocument.imageUrl} />))
           })
       });
   }
@@ -74,8 +74,8 @@ const App = () => {
       .then(response => {
         response.json()
           .then(result => {
-            setSearchResults(result.map(cardDocument =>
-              <Card onCardClick={onCardClick} cardName={cardDocument.cardName} imageLink={cardDocument.imageUrl} />))
+            setSearchResults(result.map((cardDocument, index) =>
+              <Card cardID={cardDocument.cardName + "." + index} onCardClick={onCardClick} cardName={cardDocument.cardName} imageLink={cardDocument.imageUrl} />))
           })
       });
   }
@@ -90,6 +90,7 @@ const App = () => {
   const getCardFromSearchResults = (cardID) =>
   {
     //todo
+    console.log(cardID)
   }
 
   const onSearchClick = (event) => {
@@ -183,8 +184,7 @@ const App = () => {
 
   const onCardClick = (event) => {
     setShowModal(true)
-    getCardFromSearchResults(event.target.id)
-    // console.log(event.target.id)
+    getCardFromSearchResults(event.target)
   }
 
   const onModalClick = (event) => {
