@@ -12,7 +12,8 @@ const App = () => {
   // application state
   const [showModal, setShowModal] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
-  const [selectedCards, setSelectedCards] = useState([]);
+  const [selectedCardImage, setSelectedCardImage] = useState("");
+  const [shoppingCart, setShoppingCart] = useState([])
   const [currentSkipNum, setCurrentSkipNum] = useState(0);
   const [currentCounterValue, setCurrentCounterValue] = useState(5);
   const [previousSearchQuery, setPreviousSearchQuery] = useState({
@@ -20,8 +21,15 @@ const App = () => {
   });
 
   // application effects
-
+    //for logging loaded card array
   useEffect(() => {console.log(searchResults)}, [searchResults])
+    // modal effect
+  useEffect(() => {
+    console.log(selectedCardImage); 
+    if (selectedCardImage)
+      setShowModal(true)
+  }, [selectedCardImage])
+
 
   // DB service  
   const onSearchByCardName = () => {
@@ -85,12 +93,6 @@ const App = () => {
     document.getElementById("card-name").value = ""
     document.getElementById("set-name").value = ""
     document.getElementById("set-code").value = ""
-  }
-
-  const getCardFromSearchResults = (cardID) =>
-  {
-    //todo
-    console.log(cardID)
   }
 
   const onSearchClick = (event) => {
@@ -183,32 +185,34 @@ const App = () => {
   }
 
   const onCardClick = (event) => {
-    setShowModal(true)
-    getCardFromSearchResults(event.target)
+    setSelectedCardImage(event.target.src)
   }
 
   const onModalClick = (event) => {
+    setSelectedCardImage("")
     setShowModal(false)
   }
 
   // UI
   return (
-    <div className="App">
+    <>
+      {showModal && <Modal selectedCardImage={selectedCardImage} onModalClick={onModalClick} />}
+      
+      <div className="App">
 
-      {showModal && <Modal onModalClick={onModalClick} />}
+        <TopBar onShoppingCartClick={onShoppingCartClick} />
 
-      <TopBar onShoppingCartClick={onShoppingCartClick} />
+        <SearchPanel
+          onSearchClick={onSearchClick}
+          onSelectCounter={onSelectCounter}
+          onTogglePage={onTogglePage}
+          onReloadResults={onReloadResults}
+          buttonDisabled={previousSearchQuery.category === ""} />
 
-      <SearchPanel
-        onSearchClick={onSearchClick}
-        onSelectCounter={onSelectCounter}
-        onTogglePage={onTogglePage}
-        onReloadResults={onReloadResults} 
-        buttonDisabled={previousSearchQuery.category === ""}/>
+        <ListView searchResults={searchResults} />
 
-      <ListView searchResults={searchResults} />
-
-    </div>
+      </div>
+    </>
   );
 }
 
