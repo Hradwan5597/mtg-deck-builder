@@ -83,7 +83,7 @@ const App = () => {
         response.json()
           .then(result => {
             setSearchResults(result.map((cardDocument, index) =>
-              <Card cardID={cardDocument.cardName + "." + index} onCardClick={onCardClick} cardName={cardDocument.cardName} imageLink={cardDocument.imageUrl} />))
+              <Card cardID={cardDocument.cardName + "." + index + "." + cardDocument._id} onCardClick={onCardClick} cardName={cardDocument.cardName} imageLink={cardDocument.imageUrl} />))
           })
       });
   }
@@ -91,7 +91,7 @@ const App = () => {
   // search controls
   const clearInputs = () => {
     document.getElementById("card-name").value = ""
-    document.getElementById("set-name").value = ""
+    // document.getElementById("set-name").value = ""
     document.getElementById("set-code").value = ""
   }
 
