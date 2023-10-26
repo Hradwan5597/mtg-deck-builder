@@ -51,23 +51,23 @@ const App = () => {
       });
   }
 
-  const onSearchBySetName = () => {
-    setPreviousSearchQuery({
-      category: "set-name",
-      query: document.getElementById("set-name").value,
-      skipNum: currentSkipNum,
-      counter: currentCounterValue
-    });
+  // const onSearchBySetName = () => {
+  //   setPreviousSearchQuery({
+  //     category: "set-name",
+  //     query: document.getElementById("set-name").value,
+  //     skipNum: currentSkipNum,
+  //     counter: currentCounterValue
+  //   });
 
-    DataBaseService.searchForSetByName(
-      document.getElementById("set-name").value, currentSkipNum, currentCounterValue)
-      .then(response => {
-        response.json()
-          .then(result => {
-            setSearchResults(result.map(setDocument => <>{setDocument.setName} {setDocument.setCode}</>))
-          })
-      });
-  }
+  //   DataBaseService.searchForSetByName(
+  //     document.getElementById("set-name").value, currentSkipNum, currentCounterValue)
+  //     .then(response => {
+  //       response.json()
+  //         .then(result => {
+  //           setSearchResults(result.map(setDocument => <>{setDocument.setName} {setDocument.setCode}</>))
+  //         })
+  //     });
+  // }
 
   const onSearchBySetCode = () => {
     setPreviousSearchQuery({
@@ -101,7 +101,7 @@ const App = () => {
     event.preventDefault();
     switch (event.target["id"]) {
       case "set-name-button":
-        onSearchBySetName();
+        // onSearchBySetName();
         break;
       case "card-name-button":
         onSearchByCardName();

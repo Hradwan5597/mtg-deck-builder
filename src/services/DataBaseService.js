@@ -8,11 +8,11 @@ const searchForCardByName = (cardName, skipNum, limitNum) =>
     return fetch("http://localhost:8080/search-card-by-name", requestObject);
 }
 
-const searchForSetByName = (setName, skipNum, limitNum) =>
-{
-    let requestObject = {method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify({setName: setName, skipNum: skipNum, limitNum: limitNum})}
-    return fetch("http://localhost:8080/search-set-by-name", requestObject)
-}
+// const searchForSetByName = (setName, skipNum, limitNum) =>
+// {
+//     let requestObject = {method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify({setName: setName, skipNum: skipNum, limitNum: limitNum})}
+//     return fetch("http://localhost:8080/search-set-by-name", requestObject)
+// }
 
 const searchForSetByCode = (setCode, skipNum, limitNum) => 
 {
@@ -22,6 +22,6 @@ const searchForSetByCode = (setCode, skipNum, limitNum) =>
 
 export const DataBaseService = {
     searchForCardByName, 
-    searchForSetByName, 
+    // searchForSetByName, 
     searchForSetByCode
 }

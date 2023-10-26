@@ -4,9 +4,9 @@ const SearchPanel = (props) =>
 {
     return(
         <>
-            <label htmlFor="set-name">Name of MTG Set</label>
+            {/* <label htmlFor="set-name">Name of MTG Set</label>
             <input type="text" id="set-name" name="set-name" minLength="25" maxLength="50" />
-            <button id="set-name-button" onClick={props.onSearchClick} >Search Set Name</button>
+            <button id="set-name-button" onClick={props.onSearchClick} >Search Set Name</button> */}
             <label htmlFor="card-name">Name of MTG Card</label>
             <input type="text" id="card-name" name="card-name" minLength="15" maxLength="25" />
             <button id="card-name-button" onClick={props.onSearchClick} >Search Card Name</button>
