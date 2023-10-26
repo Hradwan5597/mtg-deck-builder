@@ -32,7 +32,8 @@ const App = () => {
 
 
   // DB service  
-  const onSearchByCardName = () => {
+  const onSearchByCardName = () => 
+  {
     setPreviousSearchQuery({
       category: "card-name",
       query: document.getElementById("card-name").value,
@@ -69,7 +70,8 @@ const App = () => {
   //     });
   // }
 
-  const onSearchBySetCode = () => {
+  const onSearchBySetCode = () => 
+  {
     setPreviousSearchQuery({
       category: "set-code",
       query: document.getElementById("set-code").value,
@@ -89,13 +91,15 @@ const App = () => {
   }
 
   // search controls
-  const clearInputs = () => {
+  const clearInputs = () => 
+  {
     document.getElementById("card-name").value = ""
     // document.getElementById("set-name").value = ""
     document.getElementById("set-code").value = ""
   }
 
-  const onSearchClick = (event) => {
+  const onSearchClick = (event) => 
+  {
     setSearchResults([])
     event.stopPropagation();
     event.preventDefault();
@@ -116,11 +120,13 @@ const App = () => {
     clearInputs();
   }
 
-  const onSelectCounter = (event) => {
+  const onSelectCounter = (event) => 
+  {
     setCurrentCounterValue(event.target.value)
   }
 
-  const onTogglePage = (event) => {
+  const onTogglePage = (event) => 
+  {
     setSearchResults([]);
     switch (event.target["id"]) {
       case "prev-button":
@@ -139,12 +145,14 @@ const App = () => {
     reloadResults()
   }
 
-  const onReloadResults = (event) => {
+  const onReloadResults = (event) => 
+  {
     setSearchResults([]);
     reloadResults();
   }
 
-  const reloadResults = () => {
+  const reloadResults = () => 
+  {
     switch (previousSearchQuery.category) {
       case "card-name":
         DataBaseService.searchForCardByName(previousSearchQuery.query, previousSearchQuery.skipNum, previousSearchQuery.counter)
@@ -184,13 +192,21 @@ const App = () => {
     setShowModal(true);
   }
 
-  const onCardClick = (event) => {
+  const onCardClick = (event) => 
+  {
     setSelectedCardImage(event.target.src)
   }
 
-  const onModalClick = (event) => {
+  const onModalClick = (event) => 
+  {
     setSelectedCardImage("")
     setShowModal(false)
+  }
+
+  const onAddToCart = (event) => 
+  {
+    event.stopPropagation();
+    event.preventDefault();
   }
 
   // UI

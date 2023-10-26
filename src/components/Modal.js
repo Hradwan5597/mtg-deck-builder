@@ -6,9 +6,11 @@ const Modal = (props) =>
     <div className="Modal" onClick={props.onModalClick}>
 
       <div className="modal-content-wrapper">
-        <img id="card-image-modal" src={props.selectedCardImage} alt="card-image" />
+        <div className="modal-image-wrapper">
+          <img id="card-image-modal" src={props.selectedCardImage} alt="card-image" />
+        </div>
         <div className="modal-controls">
-          <button>Add to Cart</button> <button>Cancel</button>
+          <button id="add">Add to Cart</button> <button id="cancel">Cancel</button>
         </div>
       </div>
     </div>
