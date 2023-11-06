@@ -1,0 +1,35 @@
+.BrowseCard
+{
+    /* border: 3px solid aquamarine; */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+}
+
+
+.browsecard-image-wrapper
+{
+    margin:auto
+}
+
+.browsecard-controls
+{
+    /* border: solid 4px blue; */
+    /* height: fit-content; */
+    margin: auto;
+}
+
+.browsecard-controls > button
+{
+    padding: 2rem;
+    border-radius: 25px;
+}
+
+
+#card-image 
+{
+    z-index: 10;
+    /* position: absolute; */
+}
