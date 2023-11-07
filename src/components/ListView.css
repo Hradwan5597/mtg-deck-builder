@@ -9,11 +9,13 @@ ul#ul-browse {
 ul#ul-shopping
 {
     border: solid 2px yellow;
+    list-style: none;
+    display: flex;
+    margin:auto;
 }
 
 #ul-browse > li {
     padding: 0.25rem;
-    border: 2px solid red;
 }
 
 #ul-shopping > li {
@@ -24,10 +26,11 @@ ul#ul-shopping
 .ListView {
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
 
 @media screen and (min-width: 1100px) {
-    ul {
+    #ul-browse {
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
