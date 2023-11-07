@@ -1,5 +1,5 @@
 .TopBar {
-    border: solid 5px teal;
+    /* border: solid 5px teal; */
     display: flex;
     flex-direction: column;
 }

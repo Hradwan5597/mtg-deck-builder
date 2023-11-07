@@ -5,8 +5,6 @@ import { faShoppingCart, faCircle } from '@fortawesome/free-solid-svg-icons';
 
 const TopBar = (props) =>
 {   
-    const [cartHoldsItems, setCartHoldsItems] = useState(false);
-
     return(
         <div className="TopBar grid-container">
             <h2>MTG Deck Builder</h2>
@@ -14,7 +12,7 @@ const TopBar = (props) =>
                 <button id="cart" onClick={props.onShoppingCartClick}>
                     <span className='fa-layers fa-fw'>
                         <FontAwesomeIcon icon={faShoppingCart} />
-                        {cartHoldsItems && <FontAwesomeIcon icon={faCircle} color="orange" transform="right-20 down-20"/>}
+                        {props.cartHoldsItems && <FontAwesomeIcon icon={faCircle} color="orange" transform="right-20 down-20"/>}
                         
                     </span>
                 </button>
