@@ -11,6 +11,13 @@
     justify-content: right;
 }
 
+.cart-holds-items-indicator
+{
+    position: absolute;
+    right: 10px;
+    top: 100px;
+}
+
 button#cart
 {
     padding: 0.5rem;
