@@ -11,24 +11,33 @@ const App = () => {
 
   // application state
   const [showModal, setShowModal] = useState(false);
+  const [modalContents, setModalContents] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [selectedCardImage, setSelectedCardImage] = useState("");
-  const [shoppingCart, setShoppingCart] = useState([])
+  const [selectedCard, setSelectedCard] = useState({cardImage: "", cardId: "", quantity: 0});
+  const [shoppingCart, setShoppingCart] = useState([]);
+  const [shoppingCartIndicator, setShoppingCartIndicator] = useState(false);
   const [currentSkipNum, setCurrentSkipNum] = useState(0);
   const [currentCounterValue, setCurrentCounterValue] = useState(5);
   const [previousSearchQuery, setPreviousSearchQuery] = useState({
     category: "", query: "", skipNum: currentSkipNum, counter: currentCounterValue
   });
-
+  
+  // setInterval(() => console.log(shoppingCart), 1000)
   // application effects
     //for logging loaded card array
   useEffect(() => {console.log(searchResults)}, [searchResults])
     // modal effect
   useEffect(() => {
-    console.log(selectedCardImage); 
-    if (selectedCardImage)
+    console.log(selectedCard); 
+    if (selectedCard.cardId && selectedCard.cardImage)
       setShowModal(true)
-  }, [selectedCardImage])
+  }, [selectedCard])
+
+  // shopping cart effect
+  useEffect(() => {
+    console.log(shoppingCart)
+    setShowModal(false)
+  }, [shoppingCart])
 
 
   // DB service  
@@ -165,13 +174,13 @@ const App = () => {
           })
         break;
       case "set-name":
-        DataBaseService.searchForSetByName(previousSearchQuery.query, previousSearchQuery.skipNum, previousSearchQuery.counter)
-          .then(response => {
-            response.json()
-              .then(result => {
-                setSearchResults(result.map(setDocument => <>{setDocument.setName} {setDocument.setCode}</>))
-              });
-          });
+        // DataBaseService.searchForSetByName(previousSearchQuery.query, previousSearchQuery.skipNum, previousSearchQuery.counter)
+        //   .then(response => {
+        //     response.json()
+        //       .then(result => {
+        //         setSearchResults(result.map(setDocument => <>{setDocument.setName} {setDocument.setCode}</>))
+        //       });
+        //   });
         break;
       case "set-code":
         DataBaseService.searchForSetByCode(previousSearchQuery.query, previousSearchQuery.skipNum, previousSearchQuery.counter)
@@ -179,7 +188,7 @@ const App = () => {
             response.json()
               .then(result => {
                 setSearchResults(result.map(cardDocument =>
-                  <Card cardName={cardDocument.cardName} imageLink={cardDocument.imageUrl} />))
+                  <Card cardName={cardDocument.cardName} imageLink={cardDocument.imageUrl} onCardClick={onCardClick}/>))
               });
           });
         break;
@@ -189,34 +198,49 @@ const App = () => {
   //user controls
   const onShoppingCartClick = (event) =>
   {
+    setModalContents("shopping-cart")
     setShowModal(true);
   }
 
   const onCardClick = (event) => 
   {
-    setSelectedCardImage(event.target.src)
+    setModalContents("browse-card")
+    setSelectedCard({cardImage: event.target.src, cardId: event.target.id, quantity: 1})
+  }
+
+  const onSelectCardQuantity = (event) =>
+  {
+    event.stopPropagation();
+    event.preventDefault();
+    setSelectedCard({...selectedCard, quantity: event.target.value});
   }
 
   const onModalClick = (event) => 
   {
-    setSelectedCardImage("")
+    
+    setSelectedCard({cardImage: "", cardId: "", quantity: 0})
+    setModalContents("")
     setShowModal(false)
   }
 
-  const onAddToCart = (event) => 
+  const onAddCardToCart = (event) => 
   {
+    console.log(shoppingCart)
     event.stopPropagation();
     event.preventDefault();
+    console.log(event.target);
+    setShoppingCart([...shoppingCart, selectedCard])
+    setShoppingCartIndicator(true)
   }
 
   // UI
   return (
     <>
-      {showModal && <Modal selectedCardImage={selectedCardImage} onModalClick={onModalClick} />}
+      {showModal && <Modal cartItems={shoppingCart} modalContents={modalContents} selectedCard={selectedCard} onModalClick={onModalClick} onAddCardToCart={onAddCardToCart} onSelectCardQuantity={onSelectCardQuantity} />}
       
       <div className="App">
 
-        <TopBar onShoppingCartClick={onShoppingCartClick} />
+        <TopBar onShoppingCartClick={onShoppingCartClick} cartHoldsItems={shoppingCartIndicator}/>
 
         <SearchPanel
           onSearchClick={onSearchClick}
