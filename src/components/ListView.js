@@ -14,7 +14,17 @@ const ListView = (props) => {
             <ul id="ul-shopping">
                 {props.listViewContents.length === 0 ? <p>Cart Empty</p> :
                     props.listViewContents.map((cartItem, index) =>
-                        <li key={index}> {cartItem} </li>)}
+                        <li key={index}>
+                            <div className="list-item-conents">
+                                <img id="cart-item-image" src={cartItem.cardImage}></img>
+                                <p>Product ID: {cartItem.cardId}</p>
+                                <p>Qty:{cartItem.quantity}</p>
+                            </div>
+                            <div className="list-item-controls">
+                                <button>Remove</button>
+                            </div>
+
+                        </li>)}
             </ul>}
            
         </div>

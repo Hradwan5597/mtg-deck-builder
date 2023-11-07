@@ -11,7 +11,10 @@ ul#ul-shopping
     border: solid 2px yellow;
     list-style: none;
     display: flex;
-    margin:auto;
+    flex-direction: column;
+    overflow: scroll;
+    color: white;
+    height: 100%;
 }
 
 #ul-browse > li {
@@ -21,6 +24,17 @@ ul#ul-shopping
 #ul-shopping > li {
     padding: 0.25rem;
     border: 2px solid blue;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+}
+#ul-shopping > li > p
+{
+    padding: 1rem;
+}
+img#cart-item-image
+{
+    height: 100px;
 }
 
 .ListView {
