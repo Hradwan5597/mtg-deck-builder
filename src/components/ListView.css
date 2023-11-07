@@ -1,4 +1,4 @@
-ul {
+ul#ul-browse {
     list-style: none;
     display: flex;
     flex-wrap: wrap;
@@ -6,9 +6,19 @@ ul {
     justify-content: space-evenly;
 }
 
-li {
+ul#ul-shopping
+{
+    border: solid 2px yellow;
+}
+
+#ul-browse > li {
     padding: 0.25rem;
     border: 2px solid red;
+}
+
+#ul-shopping > li {
+    padding: 0.25rem;
+    border: 2px solid blue;
 }
 
 .ListView {

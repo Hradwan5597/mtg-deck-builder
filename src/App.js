@@ -249,7 +249,7 @@ const App = () => {
           onReloadResults={onReloadResults}
           buttonDisabled={previousSearchQuery.category === ""} />
 
-        <ListView searchResults={searchResults} />
+        <ListView listViewContents={searchResults} listViewType="browse-cards"/>
 
       </div>
     </>
