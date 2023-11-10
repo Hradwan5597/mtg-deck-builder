@@ -13,7 +13,7 @@ const App = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalContents, setModalContents] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [selectedCard, setSelectedCard] = useState({cardImage: "", cardId: "", quantity: 0});
+  const [selectedCard, setSelectedCard] = useState({cardImage: "", cardID: "", quantity: 0});
   const [shoppingCart, setShoppingCart] = useState([]);
   const [shoppingCartIndicator, setShoppingCartIndicator] = useState(false);
   const [currentSkipNum, setCurrentSkipNum] = useState(0);
@@ -29,7 +29,7 @@ const App = () => {
     // modal effect
   useEffect(() => {
     console.log(selectedCard); 
-    if (selectedCard.cardId && selectedCard.cardImage)
+    if (selectedCard.cardID && selectedCard.cardImage)
       setShowModal(true)
   }, [selectedCard])
 
@@ -205,7 +205,7 @@ const App = () => {
   const onCardClick = (event) => 
   {
     setModalContents("browse-card")
-    setSelectedCard({cardImage: event.target.src, cardId: event.target.id, quantity: 1})
+    setSelectedCard({cardImage: event.target.src, cardID: event.target.id, quantity: 1})
   }
 
   const onSelectCardQuantity = (event) =>
@@ -218,7 +218,7 @@ const App = () => {
   const onModalClick = (event) => 
   {
     
-    setSelectedCard({cardImage: "", cardId: "", quantity: 0})
+    setSelectedCard({cardImage: "", cardID: "", quantity: 0})
     setModalContents("")
     setShowModal(false)
   }
@@ -229,14 +229,51 @@ const App = () => {
     event.stopPropagation();
     event.preventDefault();
     console.log(event.target);
-    setShoppingCart([...shoppingCart, selectedCard])
-    setShoppingCartIndicator(true)
+
+    var result = shoppingCart.find((cartItem) => cartItem.cardID === selectedCard.cardID)
+    if (result)
+    {
+      shoppingCart[shoppingCart.indexOf(result)].quantity = 
+        parseInt(result.quantity) + selectedCard.quantity;
+      setShowModal(false)
+    }
+    else
+    {
+      setShoppingCart([...shoppingCart, selectedCard])
+      setShoppingCartIndicator(true)
+    }
+
+
+  }
+
+  const removeCartItemAtIndex = (index) =>
+  {
+    try 
+    {
+      shoppingCart.splice(index, 1)
+      console.log(shoppingCart)
+      if (shoppingCart.length === 0)
+        setShoppingCartIndicator(false)
+      setShowModal(false)
+    } 
+    catch (error) 
+    {
+      console.log(error)  
+    }
   }
 
   // UI
   return (
     <>
-      {showModal && <Modal cartItems={shoppingCart} modalContents={modalContents} selectedCard={selectedCard} onModalClick={onModalClick} onAddCardToCart={onAddCardToCart} onSelectCardQuantity={onSelectCardQuantity} />}
+      {showModal && 
+      <Modal 
+        cartItems={shoppingCart} 
+        modalContents={modalContents} 
+        selectedCard={selectedCard} 
+        onModalClick={onModalClick} 
+        onAddCardToCart={onAddCardToCart} 
+        onSelectCardQuantity={onSelectCardQuantity}
+        removeCartItemAtIndex={removeCartItemAtIndex} />}
       
       <div className="App">
 

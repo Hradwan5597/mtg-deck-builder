@@ -8,7 +8,7 @@ ul#ul-browse {
 
 ul#ul-shopping
 {
-    border: solid 2px yellow;
+    /* border: solid 2px yellow; */
     list-style: none;
     display: flex;
     flex-direction: column;
@@ -23,18 +23,56 @@ ul#ul-shopping
 
 #ul-shopping > li {
     padding: 0.25rem;
-    border: 2px solid blue;
+    /* border: 2px solid blue; */
     margin: auto;
     display: flex;
     flex-direction: row;
+    background: rgba(255,255,255,0.25);
+
 }
-#ul-shopping > li > p
+
+#ul-shopping p
 {
     padding: 1rem;
+    /* border:solid 1px red; */
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
 }
+
 img#cart-item-image
 {
     height: 100px;
+
+}
+
+button#remove
+{
+    background: maroon;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+button#remove:hover
+{
+    cursor: pointer;
+    color: orange;
+}
+
+.list-item-contents
+{
+    display: flex;
+    flex-direction: row;
+}
+.list-item-controls
+{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.list-item-controls button
+{
+    margin: auto;
 }
 
 .ListView {

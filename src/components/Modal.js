@@ -10,7 +10,10 @@ const Modal = (props) =>
 
       <div className="modal-content-wrapper">
 
-        {props.modalContents === "shopping-cart" && <ShoppingCart cartItems={props.cartItems} />}
+        {props.modalContents === "shopping-cart" && 
+        <ShoppingCart 
+          cartItems={props.cartItems}
+          removeCartItemAtIndex={props.removeCartItemAtIndex} />}
 
         {props.modalContents === "browse-card" && <BrowseCard selectedCardImage={props.selectedCard.cardImage} onAddCardToCart={props.onAddCardToCart} onSelectCardQuantity={props.onSelectCardQuantity} />}
 

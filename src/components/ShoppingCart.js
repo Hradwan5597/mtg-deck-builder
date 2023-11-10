@@ -5,7 +5,11 @@ const ShoppingCart = (props) =>
 {
     return (
         <div className="ShoppingCart">
-            <ListView listViewContents={props.cartItems} listViewType="shopping-cart"/>
+            <ListView 
+                listViewContents={props.cartItems} 
+                listViewType="shopping-cart"
+                removeCartItemAtIndex={props.removeCartItemAtIndex}
+            />
         </div>
     );
 }
