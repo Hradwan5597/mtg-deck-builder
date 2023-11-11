@@ -6,33 +6,46 @@ import TopBar from './components/TopBar.js';
 import ListView from './components/ListView.js';
 import SearchPanel from './components/SearchPanel.js';
 import { DataBaseService } from './services/DataBaseService.js';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+
+const so = loadStripe("hello")
 
 const App = () => {
 
   // application state
+  const [stripeObject, setStripeObject] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [modalContents, setModalContents] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [selectedCard, setSelectedCard] = useState({cardImage: "", cardID: "", quantity: 0});
+  const [selectedCard, setSelectedCard] = useState({
+    cardImage: "", 
+    cardID: "", 
+    quantity: 0
+  });
   const [shoppingCart, setShoppingCart] = useState([]);
   const [shoppingCartIndicator, setShoppingCartIndicator] = useState(false);
   const [currentSkipNum, setCurrentSkipNum] = useState(0);
   const [currentCounterValue, setCurrentCounterValue] = useState(5);
   const [previousSearchQuery, setPreviousSearchQuery] = useState({
-    category: "", query: "", skipNum: currentSkipNum, counter: currentCounterValue
+    category: "", 
+    query: "", 
+    skipNum: currentSkipNum, 
+    counter: currentCounterValue
   });
   
   // setInterval(() => console.log(shoppingCart), 1000)
   // application effects
     //for logging loaded card array
-  useEffect(() => {console.log(searchResults)}, [searchResults])
+  useEffect(() => {
+    console.log(searchResults)
+  }, [searchResults])
     // modal effect
   useEffect(() => {
     console.log(selectedCard); 
     if (selectedCard.cardID && selectedCard.cardImage)
       setShowModal(true)
   }, [selectedCard])
-
   // shopping cart effect
   useEffect(() => {
     console.log(shoppingCart)
@@ -202,6 +215,15 @@ const App = () => {
     setShowModal(true);
   }
 
+  const onCheckout = (event) =>
+  {
+    event.stopPropagation()
+    event.preventDefault()
+    
+    console.log("onCheckoout")
+    setModalContents("checkout")
+  }
+
   const onCardClick = (event) => 
   {
     setModalContents("browse-card")
@@ -262,9 +284,19 @@ const App = () => {
     }
   }
 
+  // stripe
+
+  const initiateStripe = (publicKey) =>
+  {
+    loadStripe(publicKey)
+    .then(result => {
+      console.log(result);
+    });
+  }
+
   // UI
   return (
-    <>
+    <Elements stripe={so}>
       {showModal && 
       <Modal 
         cartItems={shoppingCart} 
@@ -273,7 +305,10 @@ const App = () => {
         onModalClick={onModalClick} 
         onAddCardToCart={onAddCardToCart} 
         onSelectCardQuantity={onSelectCardQuantity}
-        removeCartItemAtIndex={removeCartItemAtIndex} />}
+        removeCartItemAtIndex={removeCartItemAtIndex} 
+        stripeObject={stripeObject}
+        onCheckout={onCheckout}
+        initiateStripe={initiateStripe}/>}
       
       <div className="App">
 
@@ -289,7 +324,7 @@ const App = () => {
         <ListView listViewContents={searchResults} listViewType="browse-cards"/>
 
       </div>
-    </>
+    </Elements>
   );
 }
 
