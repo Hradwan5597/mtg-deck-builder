@@ -3,6 +3,7 @@ import ListView from "./ListView";
 
 const ShoppingCart = (props) => 
 {
+
     return (
         <div className="ShoppingCart">
             <ListView 
@@ -10,6 +11,9 @@ const ShoppingCart = (props) =>
                 listViewType="shopping-cart"
                 removeCartItemAtIndex={props.removeCartItemAtIndex}
             />
+
+            {/* Add controls to component for checkout button */}
+            <button id="checkout-button" onClick={props.onCheckout}>Checkout</button>
         </div>
     );
 }
